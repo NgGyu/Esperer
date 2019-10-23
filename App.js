@@ -1,19 +1,45 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import Loading from './Components/Loading';
+import Login from './Components/Login';
+import { StyleSheet, Text, View , StatusBar} from 'react-native';
+import { Provider } from "react-redux";
+import { createStore } from "redux";
+import reducer from "./reducer";
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-    </View>
-  );
+let store = createStore(reducer);
+console.log(store.getState());
+
+export default class App extends React.Component {
+  
+  constructor(props) {
+    super(props);
+    this.state = {
+      isLoading: true,
+    }
+  }
+
+componentDidMount() {
+    setTimeout(() => {
+        this.setState({
+          isLoading: false,
+        })
+    }, 1200)
+}
+componentWillUnmount() {
+  
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+
+  render(){
+    const { isLoading, } = this.state;
+    return (isLoading ? (
+      <Loading />
+    ) : (
+      <Provider store={store}>
+        <Login />
+      </Provider>
+      
+    ));
+  }
+  
+}

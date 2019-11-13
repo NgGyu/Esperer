@@ -18,6 +18,7 @@ function LoginBtn() {
 
 const initialState = {
   isLogin: false,
+  isChat: false
 };
 
 function reducer(state = initialState, action) {

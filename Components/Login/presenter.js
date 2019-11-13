@@ -1,6 +1,18 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { View, Text, TouchableOpacity, TextInput, StatusBar, Button } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  Image,
+  Alert,
+  ScrollView,
+  TextInput,
+  FlatList,
+  Button,
+  StatusBar
+} from 'react-native';
 import { Ionicons } from "@expo/vector-icons";
 import styled, { createGlobalStyle, ThemeProvider } from 'styled-components';
 import theme from '../theme';
@@ -50,10 +62,10 @@ class Login extends Component {
                         onChangeText={(pw) => this.setState({pw})}
                         value={this.state.pw}
                     />
-                    <Button
-                        title="Sign In"
-                        onPress={pressedLogin}
-                    />
+                    <TouchableOpacity style={styles.btnSend} onPress={pressedLogin}>
+                      <Image source={require('../../res/next.png')} style={styles.iconSend}  />
+                    </TouchableOpacity>
+                    
                 
             </LoginContainer>   
           
@@ -89,6 +101,23 @@ const LoginContainer = styled.View`
   alignItems: flex-end;
   justifyContent: flex-start;
 `;
-
+const styles = StyleSheet.create({
+  
+  btnSend:{
+    marginTop: 20,
+    backgroundColor:'#ffffff',
+    width:80,
+    height:60,
+    borderRadius:360,
+    alignItems:'center',
+    justifyContent:'center',
+    opacity : 0.5
+  },
+  iconSend:{
+    width:30,
+    height:30,
+    alignSelf:'center',
+  },
+});  
 
 export default Login;

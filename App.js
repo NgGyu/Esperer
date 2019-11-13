@@ -1,13 +1,14 @@
 import React from 'react';
 import Loading from './Components/Loading';
 import Login from './Components/Login';
+import Main from './Components/Main';
 import { StyleSheet, Text, View , StatusBar} from 'react-native';
 import { Provider } from "react-redux";
 import { createStore } from "redux";
 import reducer from "./reducer";
 
 let store = createStore(reducer);
-console.log(store.getState());
+
 
 export default class App extends React.Component {
   
@@ -15,6 +16,7 @@ export default class App extends React.Component {
     super(props);
     this.state = {
       isLoading: true,
+      isChat: false
     }
   }
 
@@ -24,6 +26,7 @@ componentDidMount() {
           isLoading: false,
         })
     }, 1200)
+    console.log(store.getState());
 }
 componentWillUnmount() {
   
@@ -31,13 +34,22 @@ componentWillUnmount() {
 
 
   render(){
-    const { isLoading, } = this.state;
+    const { isLoading, isChat} = this.state;
     return (isLoading ? (
       <Loading />
     ) : (
-      <Provider store={store}>
-        <Login />
-      </Provider>
+      !isChat ? 
+      (
+        <Provider store={store}>
+          <Login />
+        </Provider>
+      ) :
+      (
+        <Provider store={store}>
+          <Main />
+        </Provider>
+      )
+      
       
     ));
   }
